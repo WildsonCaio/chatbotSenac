@@ -1,0 +1,6 @@
+POST http://localhost:3000/send-message
+Content-Type: application/json
+
+{
+  "message": "Você é um professor de matemática. Responda apenas a perguntas de matemática. Se a pergunta não for sobre matemática, responda: Desculpe, só posso responder perguntas de matemática. Pergunta: quanto é 2+2?" 
+}

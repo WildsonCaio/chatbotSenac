@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Professor de Matemática - Chat</title>
+    <style>
+        /* Reset e Estilos Globais */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #e9effd, #fdf3e9);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden; /* Remove rolagem na tela inteira */
+        }
+
+        /* Container do Chat */
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 600px;
+            height: 80vh;
+            background-color: #ffffff;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+        }
+
+        /* Cabeçalho do Chat */
+        .chat-header {
+            background-color: #3f51b5;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            border-top-left-radius: 15px;
+            border-top-right-radius: 15px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Área de Mensagens do Chat */
+        .chat-box {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+            background-color: #f0f4f8;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            scrollbar-width: thin;
+            scrollbar-color: #ccc #f0f4f8;
+            height: calc(100% - 100px); /* Altura fixa para a área de mensagens */
+        }
+
+        .chat-box::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .chat-box::-webkit-scrollbar-track {
+            background: #f0f4f8;
+        }
+
+        .chat-box::-webkit-scrollbar-thumb {
+            background-color: #ccc;
+            border-radius: 10px;
+        }
+
+        /* Bolhas de Mensagens */
+        .message {
+            max-width: 75%;
+            padding: 12px 18px;
+            font-size: 1em;
+            line-height: 1.5;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .user-message {
+            align-self: flex-end;
+            background-color: #3f51b5;
+            color: white;
+            border-radius: 12px 12px 0 12px;
+        }
+
+        .bot-message {
+            align-self: flex-start;
+            background-color: #e1e8ed;
+            color: #333;
+            border-radius: 12px 12px 12px 0;
+        }
+
+        /* Área de Entrada Fixa */
+        .input-area {
+            display: flex;
+            align-items: center;
+            padding: 15px 20px;
+            border-top: 1px solid #e0e0e0;
+            background-color: #ffffff;
+            box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
+        }
+
+        .input-area input {
+            flex: 1;
+            padding: 12px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 20px;
+            margin-right: 10px;
+            padding-left: 15px;
+            transition: box-shadow 0.3s ease-in-out;
+        }
+
+        .input-area input:focus {
+            box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+
+        .input-area button {
+            padding: 12px 20px;
+            background-color: #3f51b5;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease-in-out, transform 0.2s;
+        }
+
+        .input-area button:hover {
+            background-color: #F47C20;
+            transform: translateY(-2px);
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                width: 95%;
+                height: 85vh;
+            }
+            .chat-header {
+                font-size: 1.2em;
+                padding: 15px;
+            }
+            .input-area button {
+                font-size: 0.9em;
+                padding: 10px 15px;
+            }
+            .input-area input {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Container do Chat Centralizado -->
+    <div class="container" style="width: 600px; max-width: 600px;">
+        <!-- Cabeçalho do Chat -->
+        <div class="chat-header">Especialista em Matemática</div>
+
+        <!-- Área de Mensagens do Chat -->
+        <div class="chat-box" id="chat-box">
+            <!-- Mensagens do chat serão exibidas aqui -->
+        </div>
+
+        <!-- Área de Entrada Fixa na Parte Inferior -->
+        <div class="input-area">
+            <input type="text" id="user-input" placeholder="Digite sua pergunta de matemática">
+            <button onclick="sendMessage()">Enviar</button>
+        </div>
+    </div>
+
+    <script>
+        // Função para enviar mensagens
+        async function sendMessage() {
+            const userInput = document.getElementById('user-input');
+            const userMessage = userInput.value;
+            if (userMessage.trim() === '') return;
+
+            const chatBox = document.getElementById('chat-box');
+
+            // Adiciona a mensagem do usuário à caixa de chat
+            const userMessageElement = document.createElement('div');
+            userMessageElement.className = 'message user-message';
+            userMessageElement.textContent = userMessage;
+            chatBox.appendChild(userMessageElement);
+            userInput.value = '';  // Limpa o campo de entrada
+
+            try {
+                const response = await fetch('http://localhost:3000/send-message', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ message: userMessage })
+                });
+
+                const data = await response.json();
+
+                // Adiciona a resposta do professor à caixa de chat
+                const botMessageElement = document.createElement('div');
+                botMessageElement.className = 'message bot-message';
+                botMessageElement.innerHTML = data.response;
+                chatBox.appendChild(botMessageElement);
+                
+                // Rola a caixa de chat para a última mensagem
+                chatBox.scrollTop = chatBox.scrollHeight;
+
+            } catch (error) {
+                const errorMessageElement = document.createElement('div');
+                errorMessageElement.className = 'message bot-message';
+                errorMessageElement.textContent = 'Erro: Falha ao se comunicar com o professor de matemática.';
+                chatBox.appendChild(errorMessageElement);
+                console.error('Erro ao enviar mensagem:', error);
+            }
+        }
+
+        // Permite enviar mensagem ao pressionar "Enter"
+        document.getElementById('user-input').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+
+</html>
