@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Professor de Matemática - Chat</title>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- Biblioteca marked.js para renderizar Markdown -->
     <style>
         /* Reset e Estilos Globais */
         * {
@@ -177,7 +178,7 @@
 
         <!-- Área de Entrada Fixa na Parte Inferior -->
         <div class="input-area">
-            <input type="text" id="user-input" placeholder="Digite sua pergunta de matemática">
+            <input type="text" id="user-input" placeholder="Digite sua pergunta de matemática...">
             <button onclick="sendMessage()">Enviar</button>
         </div>
     </div>
@@ -207,10 +208,10 @@
 
                 const data = await response.json();
 
-                // Adiciona a resposta do professor à caixa de chat
+                // Converte o Markdown da resposta para HTML usando `marked`
                 const botMessageElement = document.createElement('div');
                 botMessageElement.className = 'message bot-message';
-                botMessageElement.innerHTML = data.response;
+                botMessageElement.innerHTML = marked.parse(data.response);
                 chatBox.appendChild(botMessageElement);
                 
                 // Rola a caixa de chat para a última mensagem
