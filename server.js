@@ -27,12 +27,12 @@ app.post('/send-message', async (req, res) => {
     const model = chaveAPI.getGenerativeModel({ model: 'gemini-1.5-flash' });
 
     // Novo prompt que limita o chatbot a responder apenas a perguntas de matemática
-    const prompt = 
+    const prompt = `
       Você é um professor de matemática especializado em ajudar com cálculos de administração de medicamentos.
       Responda apenas perguntas relacionadas a cálculos básicos de matemática e administração de medicamentos, como multiplicação, divisão e regra de três simples.
       Se a pergunta for fora desse tema, responda: "Desculpe, só posso ajudar com cálculos matemáticos."
       
-      Pergunta: ${userMessage}
+      Pergunta: ${userMessage}`
     ;
     const result = await model.generateContent(prompt);
     const responseText = await result.response.text();
