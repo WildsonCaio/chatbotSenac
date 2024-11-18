@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenIA - Página de Boas-vindas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Prompt', sans-serif;
+      background-color: #0d0d2b;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hero-section {
+      max-width: 1200px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px;
+    }
+
+    .hero-text {
+      max-width: 600px;
+    }
+
+    .hero-text h1 {
+      font-size: 3rem;
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    .hero-text h1 span {
+      color: #00d8ff;
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      color: #b0b0b0;
+      margin-bottom: 30px;
+    }
+
+    .hero-text p span {
+      color: #00d8ff;
+      font-weight: bold;
+    }
+
+/* Botões */
+.btn-primary, .btn-secondary {
+  padding: 10px 20px;
+  font-size: 1rem;
+  font-weight: bold;
+  border-radius: 30px;
+  text-align: center;
+  transition: background-color 0.3s, color 0.3s;
+  cursor: pointer;
+  letter-spacing: 1px;
+}
+
+.btn-primary:hover {
+  box-shadow: 0 4px 20px rgba(0, 216, 255, 0.5); 
+}
+
+/* Estilo para o botão principal */
+.btn-primary {
+  background-color: #00d8ff;
+  color: #000;
+  border: none;
+  font-weight: 500;
+  margin-right: 10px;
+}
+
+.btn-primary:hover {
+  background-color: #00d8ff;
+  color: #fff;
+}
+
+/* Estilo para o botão secundário */
+.btn-secondary {
+  background-color: transparent;
+  color: #00d8ff;
+  border: 2px solid #00d8ff;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.btn-secondary:hover {
+  background-color: #00d8ff;
+  color: #ffffff;
+}
+
+/* Ícone do botão "Conheça a GenIA" */
+.icon-play {
+  width: 0;
+  height: 0;
+  border-left: 12px solid #00d8ff;
+  border-top: 6px solid transparent;
+  border-bottom: 6px solid transparent;
+  padding-right: 5px;
+}
+
+
+    .hero-image img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .espelhar {
+      transform: scaleX(-1);
+    }
+
+    .redondo {
+      border-radius: 60%;
+      border: 1px solid red;
+    }
+
+    * {
+      font-family: 'Prompt';
+    }
+
+/* Estilo para o fundo do modal */
+.modal-content {
+  background-color: #0d0d2b; /* Fundo escuro */
+  color: #ffffff; /* Texto branco */
+  border-radius: 10px; /* Cantos arredondados */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra suave */
+  position: relative; /* Necessário para posicionar o botão de fechar */
+}
+
+/* Estilo para o título */
+.modal-header h5 {
+  font-size: 2rem; /* Suavizado para um tamanho menor */
+  font-weight: 600; /* Peso da fonte reduzido para suavidade */
+  color: #b0b0b0; /* Cor suavizada para tons claros */
+  text-align: center; /* Centralizado */
+  margin-bottom: 10px; /* Espaço abaixo do título */
+}
+
+/* Estilo para o campo de entrada */
+.modal-body input.form-control {
+  background-color: #1a1a3b; /* Fundo do campo */
+  color: #ffffff; /* Texto do campo */
+  border: 1px solid #00d8ff; /* Borda azul */
+  border-radius: 10px; /* Borda arredondada */
+  padding: 10px 15px; /* Espaçamento interno */
+  font-size: 1rem; /* Tamanho do texto */
+  text-align: center; /* Texto centralizado */
+}
+
+.modal-body input.form-control::placeholder {
+  color: #b0b0b0; /* Cor do placeholder */
+}
+
+/* Texto informativo */
+.modal-body p {
+  color: #b0b0b0; /* Cor do texto informativo */
+  font-size: 1rem; /* Alterado para combinar com "Descubra a GenIA ..." */
+  line-height: 1.5;
+}
+
+/* Botão "Acessar" */
+.modal-footer .btn-primary {
+  background-color: transparent; /* Sem cor de fundo */
+  border: 2px solid #00d8ff; /* Borda azul */
+  color: #00d8ff; /* Texto azul */
+  font-weight: 500;
+  font-size: 1.1rem;
+  border-radius: 30px; /* Bordas arredondadas */
+  padding: 10px 20px; /* Espaçamento interno */
+  display: inline-block;
+  text-align: center;
+  transition: 0.3s;
+}
+
+.modal-footer .btn-primary:hover {
+  background-color: #00d8ff; /* Fundo azul no hover */
+  color: #ffffff; /* Texto branco no hover */
+  box-shadow: 0 4px 20px rgba(0, 216, 255, 0.5); /* Sombra no hover */
+}
+
+/* Link secundário */
+.modal-footer a.link-secondary {
+  color: #00d8ff; /* Azul do tema */
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.modal-footer a.link-secondary:hover {
+  text-decoration: underline; /* Sublinhar no hover */
+}
+
+/* Responsividade para o modal */
+@media (max-width: 576px) {
+  .modal-content {
+    padding: 10px;
+  }
+}
+
+.modal-content {
+  background-color: #0d0d2b; /* Fundo escuro */
+  color: #ffffff; /* Texto branco */
+  border-radius: 10px; /* Cantos arredondados */
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Sombra */
+}
+
+.modal-body video {
+  border-radius: 10px;
+  outline: none;
+}
+
+/* Botão de fechar personalizado */
+.btn-close {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+/* Ícone branco */
+.btn-close::before,
+.btn-close::after {
+  content: '';
+  position: absolute;
+  width: 1.2rem;
+  height: 2px;
+  background-color: white;
+  transform-origin: center;
+  transition: background-color 0.3s ease;
+}
+
+.btn-close::before {
+  transform: rotate(45deg);
+}
+
+.btn-close::after {
+  transform: rotate(-45deg);
+}
+
+/* Hover e foco */
+.btn-close:hover::before,
+.btn-close:hover::after {
+  background-color: #f8f9fa; /* Um tom branco mais claro */
+}
+
+.btn-close:focus {
+  outline: none;
+  transform: scale(1.1);
+}
+</style>
+
+</head>
+<body>
+
+  <div class="hero-section">
+    <div class="hero-text">
+      <h1>A Maneira Mais Fácil de <span>Estudar e Aprender</span></h1>
+      <p>Descubra a GenIA, a inteligência artificial desenvolvida pelo Senac Santa Catarina para ajudar você a dominar a matemática e os cálculos de medicamentos. <span>Vamos juntos transformar o estudo em uma experiência mais leve e prática!</span></p>
+      
+      <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Quero Aprender</button>
+      <a href="#genia" class="btn-secondary" data-bs-toggle="modal" data-bs-target="#videoModal">
+        <span class="icon-play"></span> Descubra
+      </a>
+      
+    </div>
+
+    <div class="hero-image">
+      <img style="width: 650px;" src="../img/log-in-girl.svg" class="espelhar">
+    </div>
+  </div>
+
+<!-- Modal -->
+<div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <!-- Cabeçalho -->
+        <div class="modal-header border-0">
+          <h5 class="modal-title w-100 text-center" id="loginModalLabel" 
+              style="font-size: 1.8rem; font-weight: 700; color: #ffffff;">
+            Acesse sua Conta
+          </h5>
+          <button type="button" class="btn-close" title="Fechar Modal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+  
+        <!-- Corpo -->
+        <div class="modal-body text-center">
+          <p style="font-size: 1rem; color: #b0b0b0; line-height: 1.5;">
+            Digite seu e-mail institucional para continuar.
+          </p>
+          <input type="email" 
+                 class="form-control mt-3 mb-3" 
+                 placeholder="seu.email@alunos.sc.senac.br"
+                 style="background-color: #1a1a3b; 
+                        color: #fff; 
+                        border: 1px solid #00d8ff; 
+                        border-radius: 10px; 
+                        padding: 10px 15px; 
+                        font-size: 1rem;
+                        text-align: center;">
+        </div>
+  
+        <!-- Rodapé -->
+        <div class="modal-footer border-0 d-flex flex-column align-items-center">
+            <button class="btn btn-primary w-75 mb-3" onclick="irParaChat()">
+                Acessar</button>
+
+          <a href="https://portal.sc.senac.br/portal/novo/" 
+          class="link-secondary" 
+          style="
+            font-size: 0.9rem; 
+            color: #00d8ff; 
+            text-decoration: none;" 
+          target="_blank">
+         Ainda não é um aluno Senac?
+       </a>
+       
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal para o vídeo -->
+<div class="modal fade" id="videoModal" tabindex="-1" aria-labelledby="videoModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0">
+          <button type="button" class="btn-close" title="Fechar Modal" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <video controls style="width: 100%; border-radius: 10px;">
+            <source src="../movie/descubra-genia.mp4" type="video/mp4">
+            Seu navegador não suporta a reprodução de vídeos.
+          </video>
+        </div>
+      </div>
+    </div>
+  </div> 
+  
+ 
+  <script>
+    function irParaChat() {
+      window.location.href = "./chat.html"; // Caminho relativo ao arquivo `index.html`
+    }
+  </script>
+  
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+</body>
+</html>
