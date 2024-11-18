@@ -368,7 +368,7 @@
                 const loading = document.getElementById('loading');
                 loading.style.display = 'block';
                 try {
-                    const response = await fetch('http://localhost:3000/send-message', {
+                    const response = await fetch('https://chatbotsenac.onrender.com/send-message', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ message })
